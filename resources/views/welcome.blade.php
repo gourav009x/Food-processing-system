@@ -72,12 +72,12 @@
 
     <div class="gradient-mesh"></div>
 
-    <!-- Floating Background Elements -->
-    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-leaf-300 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-float-slow"></div>
-        <div class="absolute top-40 right-10 w-96 h-96 bg-citrus-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-30 animate-blob" style="animation-delay: 2s;"></div>
-        <div class="absolute -bottom-10 left-1/2 w-80 h-80 bg-leaf-200 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob" style="animation-delay: 4s;"></div>
+    <!-- Soft Organic Background -->
+    <div id="rgb-bg" class="fixed inset-0 z-[-2] bg-earth-50 overflow-hidden transition-colors duration-300">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-leaf-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-60 animate-blob"></div>
+        <div class="absolute -bottom-32 -left-32 w-[600px] h-[600px] bg-citrus-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob" style="animation-delay: 4s;"></div>
     </div>
+
 
     <!-- Premium Navbar -->
     <nav :class="{ 'glass-nav shadow-sm py-4': scrolled, 'bg-transparent py-6': !scrolled }" class="fixed w-full z-50 transition-all duration-500">
@@ -131,42 +131,37 @@
                     Access Platform
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
-                <a href="#processing" class="magnetic-btn px-10 py-5 rounded-2xl glass-card text-earth-900 font-bold text-lg hover:bg-white/90 transition-all flex items-center justify-center gap-3 group">
-                    Watch Demo
-                    <div class="w-8 h-8 rounded-full bg-leaf-100 flex items-center justify-center text-leaf-600 group-hover:scale-110 transition-transform">
+                <!-- <a href="#processing" class="magnetic-btn px-10 py-5 rounded-2xl glass-card text-earth-900 font-bold text-lg hover:bg-white/90 transition-all flex items-center justify-center gap-3 group">
+                    Watch Demo -->
+                    <!-- <div class="w-8 h-8 rounded-full bg-leaf-100 flex items-center justify-center text-leaf-600 group-hover:scale-110 transition-transform">
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6V4z"></path></svg>
-                    </div>
+                    </div> -->
                 </a>
             </div>
 
-            <!-- Floating Dashboard Preview -->
-            <div class="hero-image mt-24 relative w-full max-w-5xl mx-auto opacity-0 translate-y-10" style="perspective: 1200px;">
-                <div class="relative transform rotate-x-[8deg] transition-transform duration-1000 hover:rotate-x-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-earth-50 via-transparent to-transparent z-10 bottom-0 h-1/2"></div>
-                    <img src="{{ asset('images/dashboard_preview.png') }}" alt="Dashboard Preview" class="rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border-4 border-white/50 relative z-0">
-                    
-                    <!-- Interactive Floating Elements -->
-                    <div class="absolute -right-8 top-1/4 glass-card p-4 rounded-2xl flex items-center gap-4 z-20 animate-float-slow shadow-xl">
-                        <div class="w-12 h-12 bg-citrus-100 rounded-xl flex items-center justify-center text-citrus-500 text-xl font-bold">🍅</div>
-                        <div>
-                            <p class="text-xs text-earth-800/60 font-bold uppercase">Freshness</p>
-                            <p class="text-lg font-display font-bold text-earth-900">98.5%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
     <!-- Interactive Processing Flow Section -->
-    <section id="processing" class="py-32 relative bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-20 gsap-reveal">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-leaf-50 text-leaf-700 text-xs font-bold uppercase tracking-widest mb-4">
+    <section id="processing" class="py-32 relative overflow-hidden">
+        <!-- Aesthetic Background Elements -->
+        <div class="absolute inset-0 bg-white/40 backdrop-blur-3xl -z-10"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-leaf-100/50 to-transparent rounded-full blur-3xl -z-20 transform translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50/50 to-transparent rounded-full blur-3xl -z-20 transform -translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 gsap-reveal flex flex-col items-center">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-leaf-100 shadow-sm text-leaf-700 text-xs font-bold uppercase tracking-widest mb-6 transition-transform hover:scale-105 cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-leaf-500 animate-pulse"></span>
                     Smart Pipeline
                 </div>
-                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-earth-900 mb-6">Intelligent Workflow</h2>
-                <p class="text-xl text-earth-800/60 font-medium">From raw harvest to finalized packaging, our AI monitors every micro-step of the food processing lifecycle.</p>
+                <h2 class="text-5xl md:text-6xl font-display font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-earth-900 via-earth-800 to-leaf-900 mb-6 tracking-tight leading-tight">
+                    Intelligent Workflow
+                </h2>
+                <p class="text-xl text-earth-800/70 font-medium leading-relaxed max-w-2xl mx-auto">
+                    From raw harvest to finalized packaging, our AI monitors every micro-step of the food processing lifecycle with <span class="text-leaf-600 font-semibold">unprecedented precision</span>.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-4 gap-8 relative">
@@ -174,39 +169,47 @@
                 <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-leaf-200 via-leaf-400 to-citrus-300 -translate-y-1/2 z-0 opacity-30"></div>
 
                 <!-- Step 1 -->
-                <div class="flow-step relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-500 group bg-white/80">
-                    <div class="w-16 h-16 bg-leaf-100 rounded-2xl flex items-center justify-center text-leaf-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <div class="flow-step">
+                    <div class="relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-300 group bg-white/90 shadow-sm border border-earth-100 hover:shadow-xl hover:shadow-leaf-500/10 h-full">
+                        <div class="w-16 h-16 bg-leaf-100 rounded-2xl flex items-center justify-center text-leaf-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-earth-900 mb-3">1. Intake</h3>
+                        <p class="text-earth-800/70 font-medium text-sm leading-relaxed">Automated sorting and initial quality scanning using computer vision.</p>
                     </div>
-                    <h3 class="text-xl font-display font-bold text-earth-900 mb-3">1. Intake</h3>
-                    <p class="text-earth-800/60 font-medium text-sm leading-relaxed">Automated sorting and initial quality scanning using computer vision.</p>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="flow-step relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-500 group bg-white/80" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <div class="flow-step">
+                    <div class="relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-300 group bg-white/90 shadow-sm border border-earth-100 hover:shadow-xl hover:shadow-blue-500/10 h-full">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-earth-900 mb-3">2. Processing</h3>
+                        <p class="text-earth-800/70 font-medium text-sm leading-relaxed">Temperature and humidity controlled environments optimized per batch.</p>
                     </div>
-                    <h3 class="text-xl font-display font-bold text-earth-900 mb-3">2. Processing</h3>
-                    <p class="text-earth-800/60 font-medium text-sm leading-relaxed">Temperature and humidity controlled environments optimized per batch.</p>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="flow-step relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-500 group bg-white/80" style="transition-delay: 200ms;">
-                    <div class="w-16 h-16 bg-citrus-100 rounded-2xl flex items-center justify-center text-citrus-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <div class="flow-step">
+                    <div class="relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-300 group bg-white/90 shadow-sm border border-earth-100 hover:shadow-xl hover:shadow-citrus-500/10 h-full">
+                        <div class="w-16 h-16 bg-citrus-100 rounded-2xl flex items-center justify-center text-citrus-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-earth-900 mb-3">3. QA Check</h3>
+                        <p class="text-earth-800/70 font-medium text-sm leading-relaxed">AI analysis of pH levels, moisture, and contamination risks.</p>
                     </div>
-                    <h3 class="text-xl font-display font-bold text-earth-900 mb-3">3. QA Check</h3>
-                    <p class="text-earth-800/60 font-medium text-sm leading-relaxed">AI analysis of pH levels, moisture, and contamination risks.</p>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="flow-step relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-500 group bg-white/80" style="transition-delay: 300ms;">
-                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                <div class="flow-step">
+                    <div class="relative z-10 glass-card p-8 rounded-[2rem] hover:-translate-y-4 transition-all duration-300 group bg-white/90 shadow-sm border border-earth-100 hover:shadow-xl hover:shadow-purple-500/10 h-full">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-earth-900 mb-3">4. Storage</h3>
+                        <p class="text-earth-800/70 font-medium text-sm leading-relaxed">Smart warehousing with dynamic heatmaps and shelf-life prediction.</p>
                     </div>
-                    <h3 class="text-xl font-display font-bold text-earth-900 mb-3">4. Storage</h3>
-                    <p class="text-earth-800/60 font-medium text-sm leading-relaxed">Smart warehousing with dynamic heatmaps and shelf-life prediction.</p>
                 </div>
             </div>
         </div>
@@ -338,8 +341,7 @@
             tl.to('.hero-badge', { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
               .to('.word-reveal span', { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "back.out(1.7)" }, "-=0.4")
               .to('.hero-text', { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.4")
-              .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6")
-              .to('.hero-image', { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" }, "-=0.4");
+              .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6");
 
             // Scroll Reveal Elements
             gsap.utils.toArray('.gsap-reveal').forEach(elem => {
@@ -384,6 +386,25 @@
                 btn.addEventListener('mouseleave', () => {
                     gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
                 });
+            });
+
+            // RGB Background Scroll Effect
+            gsap.to("#rgb-bg", {
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                },
+                keyframes: [
+                    { backgroundColor: "#fdfbf7" }, // Default
+                    { backgroundColor: "#fce7f3" }, // Pinkish
+                    { backgroundColor: "#ede9fe" }, // Purplish
+                    { backgroundColor: "#e0f2fe" }, // Blueish
+                    { backgroundColor: "#dcfce7" }, // Greenish
+                    { backgroundColor: "#fef3c7" }, // Yellowish
+                    { backgroundColor: "#fdfbf7" }  // Back to default
+                ]
             });
         });
     </script>

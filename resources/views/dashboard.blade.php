@@ -16,19 +16,15 @@
                 <button x-data @click="$dispatch('open-new-batch')" class="px-6 py-2.5 bg-white text-earth-800 font-semibold text-sm rounded-2xl border border-earth-200 hover:bg-earth-50 transition-all shadow-sm flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     New Batch
-                </button>
-                <a href="{{ route('reports.generate') }}" class="px-6 py-2.5 bg-gradient-to-r from-leaf-500 to-leaf-600 text-white font-semibold text-sm rounded-2xl hover:shadow-lg hover:shadow-leaf-500/30 transition-all flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Generate Report
-                </a>
+                </button
             </div>
         </div>
     </x-slot>
 
     <!-- Main Dashboard Area -->
-    <div x-data="{ showNewBatchModal: false, showReportModal: false, showNotification: true }" 
+    <div x-data="dashboardData()" 
          @open-new-batch.window="showNewBatchModal = true"
-         x-init="setTimeout(() => showNotification = false, 4000)"
+         x-init="init()"
          class="space-y-8 pb-12 animate-fade-in relative z-10">
          
         <!-- Notifications -->
@@ -55,7 +51,7 @@
                     </div>
                     <h3 class="text-earth-800/60 text-sm font-medium mb-1">Raw Ingredients</h3>
                     <div class="flex items-baseline gap-2">
-                        <h2 class="text-3xl font-display font-bold text-earth-900">1,245<span class="text-lg text-earth-800/40 ml-1">kg</span></h2>
+                        <h2 class="text-3xl font-display font-bold text-earth-900"><span x-text="stats.raw_ingredients">1,245</span><span class="text-lg text-earth-800/40 ml-1">kg</span></h2>
                     </div>
                     <div class="mt-3 flex items-center text-xs font-semibold text-leaf-600">
                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
@@ -73,7 +69,7 @@
                     </div>
                     <h3 class="text-earth-800/60 text-sm font-medium mb-1">Active Processing</h3>
                     <div class="flex items-baseline gap-2">
-                        <h2 class="text-3xl font-display font-bold text-earth-900">12<span class="text-lg text-earth-800/40 ml-1">Batches</span></h2>
+                        <h2 class="text-3xl font-display font-bold text-earth-900"><span x-text="stats.active_processing">12</span><span class="text-lg text-earth-800/40 ml-1">Batches</span></h2>
                     </div>
                     <div class="mt-3 flex items-center text-xs font-semibold text-citrus-600">
                         Optimal flow rate
@@ -90,7 +86,7 @@
                     </div>
                     <h3 class="text-earth-800/60 text-sm font-medium mb-1">Average Freshness</h3>
                     <div class="flex items-baseline gap-2">
-                        <h2 class="text-3xl font-display font-bold text-earth-900">94.2<span class="text-lg text-earth-800/40 ml-1">%</span></h2>
+                        <h2 class="text-3xl font-display font-bold text-earth-900"><span x-text="stats.average_freshness">94.2</span><span class="text-lg text-earth-800/40 ml-1">%</span></h2>
                     </div>
                     <div class="mt-3 flex items-center text-xs font-semibold text-blue-600">
                         High retention
@@ -107,7 +103,7 @@
                     </div>
                     <h3 class="text-earth-800/60 text-sm font-medium mb-1">Food Waste</h3>
                     <div class="flex items-baseline gap-2">
-                        <h2 class="text-3xl font-display font-bold text-earth-900">2.1<span class="text-lg text-earth-800/40 ml-1">%</span></h2>
+                        <h2 class="text-3xl font-display font-bold text-earth-900"><span x-text="stats.food_waste">2.1</span><span class="text-lg text-earth-800/40 ml-1">%</span></h2>
                     </div>
                     <div class="mt-3 flex items-center text-xs font-semibold text-leaf-600">
                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
@@ -179,6 +175,83 @@
             </div>
         </div>
 
+        <!-- Processing Now Data Table -->
+        <div class="bg-white border border-earth-200/50 shadow-soft rounded-[2rem] overflow-hidden mb-8">
+            <div class="px-8 py-6 border-b border-earth-100 flex justify-between items-center bg-white">
+                <div>
+                    <h3 class="text-xl font-display font-bold text-earth-900">Processing Now Data</h3>
+                    <p class="text-sm text-earth-800/60 mt-1">Live tracking of active processing batches</p>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-earth-50/50 text-xs text-earth-800/50 font-bold uppercase tracking-wider">
+                            <th class="px-8 py-4 border-b border-earth-100">Batch ID</th>
+                            <th class="px-8 py-4 border-b border-earth-100">Raw Material</th>
+                            <th class="px-8 py-4 border-b border-earth-100">Stage</th>
+                            <th class="px-8 py-4 border-b border-earth-100">Temperature</th>
+                            <th class="px-8 py-4 border-b border-earth-100">Duration</th>
+                            <th class="px-8 py-4 border-b border-earth-100">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-earth-100 text-sm">
+                        @forelse($processingNowData as $batch)
+                        <tr class="hover:bg-earth-50/50 transition-colors group">
+                            <td class="px-8 py-5">
+                                <span class="font-mono text-earth-800/60 text-xs font-semibold">#BAT-{{ str_pad($batch->id, 3, '0', STR_PAD_LEFT) }}</span>
+                            </td>
+                            <td class="px-8 py-5 text-earth-900 font-semibold">
+                                {{ $batch->rawMaterial ? $batch->rawMaterial->name : 'N/A' }}
+                            </td>
+                            <td class="px-8 py-5 text-earth-800 font-medium">
+                                {{ $batch->stage }}
+                            </td>
+                            <td class="px-8 py-5 text-earth-800 font-medium">
+                                {{ $batch->temperature }}°C
+                            </td>
+                            <td class="px-8 py-5 text-earth-800 font-medium">
+                                {{ $batch->duration }} mins
+                            </td>
+                            <td class="px-8 py-5">
+                                @if($batch->status == 'In Progress')
+                                    @php
+                                        $isPast = $batch->created_at->addMinutes($batch->duration)->isPast();
+                                        $minsLeft = max(0, $batch->created_at->addMinutes($batch->duration)->diffInMinutes(now()));
+                                    @endphp
+                                    @if($isPast)
+                                        <form action="{{ route('batches.complete', $batch->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-leaf-500 text-white hover:bg-leaf-600 transition-colors shadow-sm cursor-pointer">
+                                                Complete Processing
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-citrus-50 text-citrus-600">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-citrus-500 mr-2 animate-pulse"></span> Processing
+                                            <span class="ml-2 text-[10px] text-citrus-500/70 border-l border-citrus-200 pl-2">{{ $minsLeft }}m left</span>
+                                        </span>
+                                    @endif
+                                @else
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-leaf-100 text-leaf-700">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-leaf-500 mr-2"></span> {{ $batch->status }}
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="px-8 py-5 text-center text-earth-800/50 text-sm font-medium">
+                                No batches are currently processing.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Premium Data Table -->
         <div class="bg-white border border-earth-200/50 shadow-soft rounded-[2rem] overflow-hidden">
             <div class="px-8 py-6 border-b border-earth-100 flex justify-between items-center bg-white">
@@ -186,9 +259,9 @@
                     <h3 class="text-xl font-display font-bold text-earth-900">Live Quality Monitoring</h3>
                     <p class="text-sm text-earth-800/60 mt-1">Real-time stats from the processing floor</p>
                 </div>
-                <button class="text-sm font-semibold text-leaf-600 hover:text-leaf-700 bg-leaf-50 hover:bg-leaf-100 px-4 py-2 rounded-xl transition-colors">
+                <a href="{{ route('directory.index') }}" class="text-sm font-semibold text-leaf-600 hover:text-leaf-700 bg-leaf-50 hover:bg-leaf-100 px-4 py-2 rounded-xl transition-colors inline-block">
                     View Full Directory
-                </button>
+                </a>
             </div>
             
             <div class="overflow-x-auto">
@@ -325,6 +398,10 @@
                 <form action="{{ route('batches.store') }}" method="POST" class="space-y-5 relative z-10">
                     @csrf
                     <div>
+                        <label class="block text-sm font-semibold text-earth-800 mb-1.5">Raw Material</label>
+                        <textarea name="raw_material" rows="2" class="w-full bg-white border border-earth-200 focus:border-leaf-500 focus:ring-4 focus:ring-leaf-500/20 text-earth-900 rounded-xl px-4 py-3 outline-none transition-all placeholder-earth-800/40 text-sm font-medium shadow-sm" placeholder="Enter raw material details..."></textarea>
+                    </div>
+                    <div>
                         <label class="block text-sm font-semibold text-earth-800 mb-1.5">Processing Stage</label>
                         <input type="text" name="stage" required class="w-full bg-white border border-earth-200 focus:border-leaf-500 focus:ring-4 focus:ring-leaf-500/20 text-earth-900 rounded-xl px-4 py-3 outline-none transition-all placeholder-earth-800/40 text-sm font-medium shadow-sm" placeholder="e.g. Initial Sorting & Washing">
                     </div>
@@ -344,6 +421,10 @@
                         <label class="block text-sm font-semibold text-earth-800 mb-1.5">Assigned Quality Supervisor</label>
                         <input type="text" name="operator" required class="w-full bg-white border border-earth-200 focus:border-leaf-500 focus:ring-4 focus:ring-leaf-500/20 text-earth-900 rounded-xl px-4 py-3 outline-none transition-all placeholder-earth-800/40 text-sm font-medium shadow-sm" placeholder="Jane Doe">
                     </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-earth-800 mb-1.5">Food Input Details</label>
+                        <textarea name="food_input" rows="2" class="w-full bg-white border border-earth-200 focus:border-leaf-500 focus:ring-4 focus:ring-leaf-500/20 text-earth-900 rounded-xl px-4 py-3 outline-none transition-all placeholder-earth-800/40 text-sm font-medium shadow-sm" placeholder="Describe the food batch (e.g. 500kg organic tomatoes)"></textarea>
+                    </div>
                     <input type="hidden" name="raw_material_id" value="1">
 
                     <div class="pt-6 flex justify-end gap-3 mt-4">
@@ -360,8 +441,40 @@
         </div>
     </div>
 
-    <!-- Chart.js Setup with Organic Styling -->
+    <!-- Alpine Data Component & Chart.js Setup -->
     <script>
+        function dashboardData() {
+            return {
+                showNewBatchModal: false,
+                showReportModal: false,
+                showNotification: true,
+                stats: {
+                    raw_ingredients: '1,245',
+                    active_processing: '12',
+                    average_freshness: '94.2',
+                    food_waste: '2.1'
+                },
+                init() {
+                    setTimeout(() => this.showNotification = false, 4000);
+                    
+                    // Poll for real-time stats every 3 seconds
+                    setInterval(() => {
+                        fetch('{{ route('api.dashboard.stats') }}')
+                            .then(res => res.json())
+                            .then(data => {
+                                this.stats.raw_ingredients = new Intl.NumberFormat().format(data.stats.raw_ingredients);
+                                this.stats.active_processing = data.stats.active_processing;
+                                this.stats.average_freshness = data.stats.average_freshness;
+                                this.stats.food_waste = data.stats.food_waste;
+                                
+                                // Dispatch event to update charts
+                                window.dispatchEvent(new CustomEvent('update-charts', { detail: data.charts }));
+                            });
+                    }, 3000);
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             Chart.defaults.font.family = "'Inter', sans-serif";
             Chart.defaults.color = '#4b5563'; // earth-800/60 equivalent
@@ -375,7 +488,7 @@
             gradient1.addColorStop(0, 'rgba(34, 197, 94, 0.2)'); // leaf-500
             gradient1.addColorStop(1, 'rgba(34, 197, 94, 0.0)');
 
-            new Chart(ctx1, {
+            const yieldChart = new Chart(ctx1, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -429,7 +542,7 @@
             });
 
             const ctx2 = document.getElementById('inventoryChart').getContext('2d');
-            new Chart(ctx2, {
+            const inventoryChart = new Chart(ctx2, {
                 type: 'bar',
                 data: {
                     labels: ['Sec A', 'Sec B', 'Sec C', 'Cold'],
@@ -473,6 +586,18 @@
                             grid: { display: false, drawBorder: false }
                         }
                     }
+                }
+            });
+
+            // Update charts on Alpine event
+            window.addEventListener('update-charts', (e) => {
+                if (e.detail.yield) {
+                    yieldChart.data.datasets[0].data = e.detail.yield;
+                    yieldChart.update();
+                }
+                if (e.detail.inventory) {
+                    inventoryChart.data.datasets[0].data = e.detail.inventory;
+                    inventoryChart.update();
                 }
             });
         });

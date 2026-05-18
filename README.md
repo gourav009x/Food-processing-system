@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Food Processing & Quality Management System
 
 A production-ready full-stack web application built with Laravel 12, MySQL, Tailwind CSS, and Alpine.js.
@@ -139,3 +140,6 @@ php artisan test
 - Password hashing using Bcrypt.
 - Input validation via Laravel Requests.
 - SQL injection prevention via Eloquent ORM.
+=======
+# Food-processing-system
+>>>>>>> 3b53957bde9bc1f1dc413c4ec8005457039d44ca
