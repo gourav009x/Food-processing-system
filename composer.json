@@ -35,6 +35,13 @@
         }
     },
     "scripts": {
+        "vercel-build": [
+            "composer install",
+            "php artisan config:cache",
+            "php artisan route:cache",
+            "npm install",
+            "npm run build"
+        ],
         "setup": [
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
