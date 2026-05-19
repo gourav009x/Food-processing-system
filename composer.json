@@ -22,13 +22,6 @@
         "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^11.5.50"
     },
-    "vercel-build": [
-    "composer install",
-    "php artisan config:cache",
-    "php artisan route:cache",
-    "npm install",
-    "npm run build"
-],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
