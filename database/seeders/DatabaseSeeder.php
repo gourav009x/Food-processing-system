@@ -23,6 +23,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        User::firstOrCreate(
+            ['email' => 'distributor@example.com'],
+            [
+                'name' => 'Distributor User',
+                'password' => bcrypt('password'),
+                'role' => 'Distributor'
+            ]
+        );
+
         $this->call([
             RawMaterialSeeder::class,
         ]);

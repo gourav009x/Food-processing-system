@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
                 'unit' => 'kg',
                 'arrival_date' => now(),
                 'freshness_score' => 100,
-                'nutrition_value' => 'High',
+                'nutrition_value' => 100,
                 'batch_no' => 'RAW-' . rand(1000, 9999),
                 'status' => 'Quality Passed'
             ]);
@@ -160,6 +160,28 @@ Route::middleware('auth')->group(function () {
             ]
         ]);
     })->name('api.dashboard.stats');
+
+    Route::get('/api/storage/data', function () {
+        $storageData = App\Models\WarehouseInventory::with('packaging.processingBatch.rawMaterial')->latest()->get();
+        
+        $mapped = $storageData->map(function ($item) {
+            // Simulate slight real-time fluctuations for the demo
+            $tempFluctuation = rand(-5, 5) / 10;
+            $humFluctuation = rand(-2, 2);
+            
+            return [
+                'id' => str_pad($item->id, 4, '0', STR_PAD_LEFT),
+                'product_name' => $item->packaging->processingBatch->rawMaterial->name ?? 'Unknown Product',
+                'section' => $item->section,
+                'temperature' => number_format($item->temperature + $tempFluctuation, 1),
+                'humidity' => max(0, min(100, $item->humidity + $humFluctuation)),
+                'quantity' => $item->quantity,
+                'status' => $item->status,
+            ];
+        });
+
+        return response()->json(['data' => $mapped]);
+    })->name('api.storage.data');
 });
 
 require __DIR__.'/auth.php';

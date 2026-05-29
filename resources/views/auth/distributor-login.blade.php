@@ -5,6 +5,11 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div class="mb-6 text-center">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Distributor Portal</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Sign in to manage distributions</p>
+        </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -46,7 +51,7 @@
 
         <div class="mt-6 text-center border-t border-gray-200 dark:border-gray-700 pt-4">
             <p class="text-sm text-gray-600 dark:text-gray-400">
-                Are you a Distributor? <a href="{{ route('distributor.login') }}" class="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">Login here</a>
+                Are you a Processing Staff? <a href="{{ route('login') }}" class="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">Login here</a>
             </p>
         </div>
     </form>
