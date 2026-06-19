@@ -45,8 +45,13 @@
 
                 <!-- Nav Items -->
                 <a href="{{ url('/') }}" class="group relative flex items-center p-3 rounded-2xl transition-all duration-300 hover:bg-leaf-50 border border-transparent hover:border-leaf-100">
+                    <svg class="w-6 h-6 text-earth-800/60 group-hover:text-leaf-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span x-show="dockExpanded" x-transition.opacity.duration.300ms class="absolute left-16 text-sm font-semibold text-earth-800 whitespace-nowrap">Home</span>
+                </a>
+
+                <a href="{{ route('dashboard') }}" class="group relative flex items-center p-3 rounded-2xl transition-all duration-300 hover:bg-leaf-50 border border-transparent hover:border-leaf-100">
                     <svg class="w-6 h-6 text-earth-800/60 group-hover:text-leaf-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    <span x-show="dockExpanded" x-transition.opacity.duration.300ms class="absolute left-16 text-sm font-semibold text-earth-800 whitespace-nowrap">Landing Page</span>
+                    <span x-show="dockExpanded" x-transition.opacity.duration.300ms class="absolute left-16 text-sm font-semibold text-earth-800 whitespace-nowrap">Dashboard</span>
                 </a>
 
                 <a href="{{ route('dashboard') }}" class="group relative flex items-center p-3 rounded-2xl transition-all duration-300 hover:bg-leaf-50 border border-transparent hover:border-leaf-100">

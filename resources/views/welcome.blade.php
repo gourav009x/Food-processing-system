@@ -221,19 +221,19 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
                 <div class="stat-item">
-                    <div class="text-5xl md:text-6xl font-display font-extrabold text-leaf-400 mb-2"><span class="counter" data-target="98">0</span>%</div>
+                    <div class="text-5xl md:text-6xl font-display font-extrabold text-leaf-400 mb-2"><span class="counter" data-target="{{ $qualityAccuracy ?? 98 }}">0</span>%</div>
                     <div class="text-sm font-bold uppercase tracking-wider text-earth-300">Quality Accuracy</div>
                 </div>
                 <div class="stat-item">
-                    <div class="text-5xl md:text-6xl font-display font-extrabold text-citrus-400 mb-2"><span class="counter" data-target="45">0</span>%</div>
+                    <div class="text-5xl md:text-6xl font-display font-extrabold text-citrus-400 mb-2"><span class="counter" data-target="{{ $wasteReduction ?? 45 }}">0</span>%</div>
                     <div class="text-sm font-bold uppercase tracking-wider text-earth-300">Waste Reduction</div>
                 </div>
                 <div class="stat-item">
-                    <div class="text-5xl md:text-6xl font-display font-extrabold text-blue-400 mb-2"><span class="counter" data-target="2">0</span>x</div>
+                    <div class="text-5xl md:text-6xl font-display font-extrabold text-blue-400 mb-2"><span class="counter" data-target="{{ $fasterProcessing ?? 2 }}">0</span>x</div>
                     <div class="text-sm font-bold uppercase tracking-wider text-earth-300">Faster Processing</div>
                 </div>
                 <div class="stat-item">
-                    <div class="text-5xl md:text-6xl font-display font-extrabold text-purple-400 mb-2"><span class="counter" data-target="100">0</span>k+</div>
+                    <div class="text-5xl md:text-6xl font-display font-extrabold text-purple-400 mb-2"><span class="counter" data-target="{{ $batchesManaged ?? 100 }}">0</span></div>
                     <div class="text-sm font-bold uppercase tracking-wider text-earth-300">Batches Managed</div>
                 </div>
             </div>

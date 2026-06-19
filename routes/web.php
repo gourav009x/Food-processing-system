@@ -6,7 +6,23 @@ use App\Models\ProcessingBatch;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('welcome');
+    $qualityAccuracy = \App\Models\RawMaterial::avg('freshness_score') ?? 98;
+    
+    $totalMaterials = \App\Models\RawMaterial::count();
+    $rejectedMaterials = \App\Models\RawMaterial::where('status', 'Rejected')->count();
+    $wasteReduction = $totalMaterials > 0 ? round(100 - ($rejectedMaterials / $totalMaterials * 100)) : 45;
+    
+    $avgDuration = \App\Models\ProcessingBatch::avg('duration') ?? 60;
+    $fasterProcessing = $avgDuration > 0 ? max(1, round(120 / $avgDuration)) : 2;
+
+    $batchesManaged = \App\Models\ProcessingBatch::count();
+
+    return view('welcome', [
+        'qualityAccuracy' => round($qualityAccuracy),
+        'wasteReduction' => $wasteReduction,
+        'fasterProcessing' => $fasterProcessing,
+        'batchesManaged' => $batchesManaged
+    ]);
 });
 
 Route::get('/dashboard', function () {
